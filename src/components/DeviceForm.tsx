@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDeviceById, updateDevice } from "../services/api";
+import { fetchDeviceById } from "../services/fakeapi";
 import { Link } from "react-router-dom";
 
 const DeviceForm = () => {
@@ -15,8 +15,24 @@ const DeviceForm = () => {
 
   useEffect(() => {
     const loadDevice = async () => {
-      const data = await fetchDeviceById(deviceuuid);
-      setFormData(data);
+      if (deviceuuid) {
+        const data = await fetchDeviceById(deviceuuid);
+        if (data) {
+          setFormData({
+            ...data,
+            screen: {
+              ...data.screen,
+              wide: data.screen.wide.toString(),
+              narrow: data.screen.narrow.toString(),
+              orientation: data.screen.orientation || "",
+            },
+          });
+        } else {
+          console.error("Fetched data is undefined");
+        }
+      } else {
+        console.error("Device UUID is undefined");
+      }
     };
     loadDevice();
   }, [deviceuuid]);
@@ -28,7 +44,7 @@ const DeviceForm = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    await updateDevice(deviceuuid, formData);
+    // await updateDevice(deviceuuid, formData);
     alert("Device updated successfully!");
   };
 
