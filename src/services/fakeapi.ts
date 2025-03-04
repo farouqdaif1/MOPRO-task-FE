@@ -63,10 +63,10 @@ export const fetchDeviceById = async (deviceuuid: string) => {
     return devices.find(device => device.deviceuuid === deviceuuid);
 };
 
-export const updateDevice = async (deviceuuid: string, updatedData: Partial<typeof devices[0]>) => {
-    const index = devices.findIndex(device => device.deviceuuid === deviceuuid);
-    if (index !== -1) {
-        devices[index] = { ...devices[index], ...updatedData };
-    }
-    return devices[index];
-};
+// export const updateDevice = async (deviceuuid: string, updatedData: Partial<typeof devices[0]>) => {
+//     const index = devices.findIndex(device => device.deviceuuid === deviceuuid);
+//     if (index !== -1) {
+//         devices[index] = { ...devices[index], ...updatedData };
+//     }
+//     return devices[index];
+// };
