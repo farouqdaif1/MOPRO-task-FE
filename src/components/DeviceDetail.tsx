@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDeviceById } from "../services/fakeapi";
+import { fetchDeviceById } from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 
 interface Screen {
@@ -46,7 +46,7 @@ const DeviceDetail = () => {
 
   return (
     <div className="container mx-auto p-4 h-[100vh] flex flex-col items-center justify-center">
-      <div className="h-[60%] w-[50%] p-4 rounded-lg shadow border border-gray-200 flex flex-col space-y-4">
+      <div className=" w-[50%] p-4 rounded-lg shadow border border-gray-200 flex flex-col space-y-4">
         <h1 className="text-4xl font-bold">{device.model} Details</h1>
         <p className="text-xl   italic">
           <strong>Manufacturer:</strong> {device.manufacturer}
@@ -76,7 +76,7 @@ const DeviceDetail = () => {
           </Link>
           <button
             onClick={() => navigate(`/device/${id}/edit`)} // Navigate to the edit page
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            className="bg-[#2A4DD0] text-white px-4 py-2 rounded hover:bg-[#2a4ed0dc]"
           >
             Edit Device
           </button>

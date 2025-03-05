@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { fetchDevices } from "../services/fakeapi";
+import { fetchDevices } from "../services/api";
 import { Link } from "react-router-dom";
 
 interface Screen {
@@ -28,7 +28,7 @@ const DeviceList = () => {
   useEffect(() => {
     const loadDevices = async () => {
       const data = await fetchDevices();
-      setDevices(data);
+      setDevices(data.devices);
     };
     loadDevices();
   }, []);
@@ -81,9 +81,9 @@ const DeviceList = () => {
               <p className="text-lg text-[#909193] italic">
                 Type: {device.type}
               </p>
-              <p className="text-lg text-[#909193] italic">
+              {/* <p className="text-lg text-[#909193] italic">
                 Screen: {device.screen.size}
-              </p>
+              </p> */}
               {device.model_full && (
                 <p className="text-lg text-[#909193] italic">
                   Full Model: {device.model_full}
