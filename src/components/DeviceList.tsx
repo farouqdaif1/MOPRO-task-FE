@@ -62,12 +62,12 @@ const DeviceList = () => {
         onChange={handleSearch}
         className="border rounded-xl p-2 my-4 w-full"
       />
-      <ul className="flex flex-wrap items-center justify-between space-x-4 ">
+      <ul className="flex flex-wrap  items-center justify-between space-x-4 ">
         {filteredDevices.map((device) => (
           <Link
             to={`/device/${device.deviceuuid}`}
             key={device.deviceuuid}
-            className={`p-4 border-2 my-2 rounded-xl w-[30%] h-[150px] hover:border-6 hover:border-[#2A4DD0] hover:bg-[#2A4DD0] ${
+            className={` w-full p-4 border-2 my-2 rounded-xl xl:w-[30%] h-[150px] hover:border-6 hover:border-[#2A4DD0] hover:bg-[#2A4DD0] ${
               device.disabledUntil
                 ? "bg-red-500 text-white hover:border-6 hover:border-[#2A4DD0] hover:bg-[#2A4DD0]"
                 : ""

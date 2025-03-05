@@ -46,7 +46,7 @@ const DeviceDetail = () => {
 
   return (
     <div className="container mx-auto p-4 h-[100vh] flex flex-col items-center justify-center">
-      <div className=" w-[50%] p-4 rounded-lg shadow border border-gray-200 flex flex-col space-y-4">
+      <div className=" w-[100%] xl:w-[50%]  p-4 rounded-lg shadow border border-gray-200 flex flex-col space-y-4">
         <h1 className="text-4xl font-bold">{device.model} Details</h1>
         <p className="text-xl   italic">
           <strong>Manufacturer:</strong> {device.manufacturer}
