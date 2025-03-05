@@ -38,4 +38,12 @@ export const createDevice = async (newData: Device) => {
     const response = await axios.post(`${API_BASE_URL}/devices/`, newData);
     return response.data;
 }
+export const deviceLock = async (id: string) => {
+    const response = await axios.post(`${API_BASE_URL}/devices/${id}/lock`);
+    return response.data;
+}
+export const deviceUnlock = async (id: string) => {
+    const response = await axios.post(`${API_BASE_URL}/devices/${id}/unlock`);
+    return response.data;
+}
 

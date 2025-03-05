@@ -19,6 +19,7 @@ interface Device {
   type: string;
   disabledUntil?: number; // Optional because not all objects have this property
   model_full?: string; // Optional, only present in some iOS devices
+  is_locked?: boolean;
 }
 
 const DeviceList = () => {
@@ -67,7 +68,7 @@ const DeviceList = () => {
           <Link
             to={`/device/${device.deviceuuid}`}
             key={device.deviceuuid}
-            className={` w-full p-4 border-2 my-2 rounded-xl xl:w-[30%] h-[150px] hover:border-6 hover:border-[#2A4DD0] hover:bg-[#2A4DD0] ${
+            className={` w-full p-4 border-2 my-2 rounded-xl xl:w-[30%] h-[200px] hover:border-6 hover:border-[#2A4DD0] hover:bg-[#2A4DD0] ${
               device.disabledUntil
                 ? "bg-red-500 text-white hover:border-6 hover:border-[#2A4DD0] hover:bg-[#2A4DD0]"
                 : ""
@@ -81,14 +82,21 @@ const DeviceList = () => {
               <p className="text-lg text-[#909193] italic">
                 Type: {device.type}
               </p>
-              {/* <p className="text-lg text-[#909193] italic">
-                Screen: {device.screen.size}
-              </p> */}
+              {device.screen && (
+                <p className="text-lg text-[#909193] italic">
+                  Screen: {device.screen.size}
+                </p>
+              )}
+
               {device.model_full && (
                 <p className="text-lg text-[#909193] italic">
                   Full Model: {device.model_full}
                 </p>
               )}
+              <p className="text-lg text-[#909193] italic">
+                <strong>Device status:</strong>{" "}
+                {device.is_locked ? "Locked" : "Unlocked"}
+              </p>
             </li>
           </Link>
         ))}

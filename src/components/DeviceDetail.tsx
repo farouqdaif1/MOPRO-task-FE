@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { fetchDeviceById } from "../services/api";
+import { fetchDeviceById, deviceLock, deviceUnlock } from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
 
 interface Screen {
@@ -20,6 +20,7 @@ interface Device {
   type: string;
   disabledUntil?: number;
   model_full?: string;
+  is_locked?: boolean;
 }
 
 const DeviceDetail = () => {
@@ -43,7 +44,26 @@ const DeviceDetail = () => {
   }, [id]);
 
   if (!device) return <div>Loading...</div>;
-
+  const handelDeviceLock = async (id: string) => {
+    const data = await deviceLock(id);
+    if (data) {
+      setDevice({ ...device, is_locked: true });
+      alert("Device is locked!");
+    } else {
+      console.error("Error locking device");
+      alert("Error locking device");
+    }
+  };
+  const handelDeviceUnlock = async (id: string) => {
+    const data = await deviceUnlock(id);
+    if (data) {
+      setDevice({ ...device, is_locked: false });
+      alert("Device is unlocked!");
+    } else {
+      console.error("Error unlocking device");
+      alert("Error unlocking device");
+    }
+  };
   return (
     <div className="container mx-auto p-4 h-[100vh] flex flex-col items-center justify-center">
       <div className=" w-[100%] xl:w-[50%]  p-4 rounded-lg shadow border border-gray-200 flex flex-col space-y-4">
@@ -57,10 +77,16 @@ const DeviceDetail = () => {
         <p className="text-xl   italic">
           <strong>Type:</strong> {device.type}
         </p>
+        {device.screen && (
+          <p className="text-xl   italic">
+            <strong>Screen Size:</strong> {device.screen.size}
+          </p>
+        )}
         <p className="text-xl   italic">
-          <strong>Screen Size:</strong> {device.screen.size}
+          <strong>Device status:</strong>{" "}
+          {device.is_locked ? "Locked" : "Unlocked"}
         </p>
-        {device.screen.orientation && (
+        {device.screen && (
           <p className="text-xl   italic">
             <strong>Orientation:</strong> {device.screen.orientation}
           </p>
@@ -80,6 +106,29 @@ const DeviceDetail = () => {
           >
             Edit Device
           </button>
+          {device.is_locked ? (
+            <button
+              onClick={() => {
+                if (id) {
+                  handelDeviceUnlock(id);
+                }
+              }}
+              className="bg-[#2A4DD0] text-white px-4 py-2 rounded hover:bg-[#2a4ed0dc]"
+            >
+              Unlock Device
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                if (id) {
+                  handelDeviceLock(id);
+                }
+              }}
+              className="bg-[#2A4DD0] text-white px-4 py-2 rounded hover:bg-[#2a4ed0dc]"
+            >
+              Lock Device
+            </button>
+          )}
         </div>
       </div>
     </div>
